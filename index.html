@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Electroacupuncture Clinic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            color: #00796b;
+            text-align: center;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background: #00796b;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background: #005f56;
+        }
+
+        .note {
+            font-size: 0.9em;
+            color: #d32f2f;
+        }
+
+        .confirmation {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            form {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Electroacupuncture Clinic Appointment Form</h1>
+
+    <form id="appointment-form" method="POST" action="https://formspree.io/f/xnndwgog">
+        <label>Full Name:</label>
+        <input type="text" name="name" required>
+
+        <label>Age:</label>
+        <input type="number" name="age" required>
+
+        <label>Address:</label>
+        <textarea name="address" required></textarea>
+
+        <label>Contact Number:</label>
+        <input type="text" name="contact" required>
+
+        <label>Email (optional):</label>
+        <input type="email" name="email">
+
+        <label>Job:</label>
+        <input type="text" name="job">
+
+        <label>Marital Status:</label>
+        <select name="marital_status">
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Divorced">Divorced</option>
+        </select>
+
+        <label>Current Diseases / Problems:</label>
+        <textarea name="diseases"></textarea>
+
+        <label>Any unfortunate accidents (if any):</label>
+        <textarea name="accidents"></textarea>
+
+        <label>Current Medications / Treatments / Surgeries / Therapies:</label>
+        <textarea name="medications"></textarea>
+
+        <label>Preferred Shift:</label>
+        <select name="shift" required>
+            <option value="10:30 AM - 1:30 PM">10:30 AM - 1:30 PM</option>
+            <option value="2:30 PM - 6:30 PM">2:30 PM - 6:30 PM</option>
+        </select>
+
+        <p class="note">* Appointments are only available from Monday to Friday.</p>
+
+        <input type="submit" value="Book Appointment">
+        <div class="confirmation" id="confirmation-message">Thank you! Your appointment has been submitted.</div>
+    </form>
+
+    <p style="text-align:center; margin-top: 40px;">
+        <strong>Clinic Address:</strong><br>
+        Parakkal Kuttikadan House, Near Mary Immaculate Church, Mannampetta, Thrissur, Kerala 680302<br>
+        <strong>Contact:</strong> 8891492235<br>
+        <strong>Business Profile:</strong> <a href="https://g.co/kgs/w9gudEG" target="_blank">Google Business</a>
+    </p>
+
+    <script>
+        // Show confirmation message on successful submission
+        const form = document.getElementById('appointment-form');
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById('confirmation-message').style.display = 'block';
+                    form.reset();
+                } else {
+                    alert('There was an issue submitting your form. Please try again.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
